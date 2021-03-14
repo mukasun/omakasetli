@@ -1,0 +1,103 @@
+@import '@/styles/_utils';
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  text-size-adjust: 100%;
+  line-height: 1.7;
+
+  @include mq(sm) {
+    font-size: 15px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'BlinkMacSystemFont', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
+    sans-serif;
+  color: var(--color-base-text);
+  word-break: break-word;
+  word-wrap: break-word;
+  background: var(--color-base-background);
+}
+
+img {
+  max-width: 100%;
+}
+
+p,
+blockquote,
+dl,
+dd,
+dt,
+section {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+hr {
+  border: none;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: 0.25s;
+  appearance: none;
+}
+
+.wrapper {
+  padding: 0 40px;
+  margin: 0 auto;
+
+  @include mq(xs) {
+    padding: 0 14px;
+  }
+
+  @include mq(sm) {
+    padding: 0 20px;
+  }
+
+  @include mq(md) {
+    padding: 0 25px;
+  }
+
+  @include mq(lg) {
+    max-width: 100%;
+  }
+}

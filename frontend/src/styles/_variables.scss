@@ -1,0 +1,33 @@
+:root {
+  --c-primary: #3ea8ff;
+  --c-primary-darker: #0f83fd;
+  --c-body: rgba(0, 0, 0, 0.82);
+  --c-body-content: #3e3f48;
+  --c-gray: #93a5b1;
+  --c-gray-lighter: #b9c7d2;
+  --c-gray-darker: #77838c;
+  --c-gray-border: #cfdce6;
+  --c-gray-border-lighter: rgba(92, 147, 187, 0.17);
+  --c-base-bg: #fff;
+  --c-primary-bg: #edf2f7;
+  --c-primary-bg-darker: #c6d5e2;
+  --c-primary-bg-lighter: #f1f5f9;
+  --c-gray-bg-hover: rgba(239, 246, 251, 0.6);
+  --c-blue-bg: #e0efff;
+  --c-blue-bg-lighter: #e6f2ff;
+  --c-contrast: #242432;
+  --c-error: #ff6868;
+  --c-error-bg: #fff0f0;
+  --c-like: #f76685;
+  --c-like-bg: #ffeaf4;
+  --c-idea: #807aff;
+  --c-idea-bg: #e8ebff;
+  --c-closed-bg: #545c77;
+  --font-base: -apple-system, 'BlinkMacSystemFont', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+    Meiryo, sans-serif, 'Segoe UI Emoji';
+  --font-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace, 'Segoe UI Emoji';
+  --font-alphabet-only: 'Inter', 'BlinkMacSystemFont', Arial, sans-serif;
+  --header-height: 66px;
+  --rcs-ellipsis-color: #3ea8ff;
+  --rcs-ellipsis-size: 64px;
+}

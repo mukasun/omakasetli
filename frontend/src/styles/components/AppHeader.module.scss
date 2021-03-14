@@ -1,0 +1,21 @@
+.header {
+  height: var(--header-height);
+  color: var(--c-body);
+  background: var(--c-base-bg);
+}
+
+.inner,
+.homeLink {
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  justify-content: space-between;
+}
+
+.homeLink {
+  position: relative;
+  height: var(--header-height);
+  padding: 3px 0;
+}
