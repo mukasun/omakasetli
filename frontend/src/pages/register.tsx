@@ -9,6 +9,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { AvatarUploader } from '@/components/AvatarUploader'
 import { userCollection, isUniqueSlug } from '@/collections/user'
+import { useFirebase } from '@/libs/firebase/hook'
 import { InfoOutlineIcon } from '@chakra-ui/icons'
 import {
   Input,
@@ -21,12 +22,12 @@ import {
   FormHelperText,
   useToast,
 } from '@chakra-ui/react'
-import { FirebaseClient } from '@/libs/FirebaseClient'
 
 const RegisterPage: NextPage = () => {
   const { providerMetadata, setCurrentUser } = useAuth()
   const toast = useToast()
   const router = useRouter()
+  const firebase = useFirebase()
 
   useRequireNoUser()
 
@@ -49,7 +50,7 @@ const RegisterPage: NextPage = () => {
       }
 
       return userCollection
-        .set({ ...values, created: FirebaseClient.instance.serverTimestamp() })
+        .set({ ...values, created: firebase.serverTimestamp })
         .then((id) => {
           userCollection.fetch(id).then((user) => {
             setCurrentUser(user)

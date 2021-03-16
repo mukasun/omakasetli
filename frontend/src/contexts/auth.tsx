@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
-import { FirebaseClient } from '@/libs/FirebaseClient'
+
 import { User, userCollection } from '@/collections/user'
 import { useRouter } from 'next/router'
+import { useFirebase } from '@/libs/firebase/hook'
 
 type ProviderMetadata = {
   uid: string
@@ -23,9 +24,10 @@ export function AuthProvider({ children }: any) {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined)
   const [providerMetadata, setProviderMetadata] = useState<ProviderMetadata | null>(null)
   const router = useRouter()
+  const firebase = useFirebase()
 
   useEffect(() => {
-    FirebaseClient.instance.auth.onAuthStateChanged(async (user) => {
+    firebase.auth.onAuthStateChanged(async (user) => {
       if (!user) {
         setCurrentUser(null)
       } else {
@@ -52,6 +54,4 @@ export function AuthProvider({ children }: any) {
   )
 }
 
-export const useAuth = () => {
-  return useContext(AuthContext)
-}
+export const useAuth = () => useContext(AuthContext)

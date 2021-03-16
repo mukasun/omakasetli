@@ -1,5 +1,5 @@
 {
-  "name": "next-boilerplate",
+  "name": "omakasetli",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,16 +34,25 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
     "@firestore-simple/web": "^7.0.5",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@types/next-auth": "^3.7.1",
+    "@types/react-redux": "^7.1.16",
     "clsx": "^1.1.1",
     "firebase": "^8.3.0",
     "firebase-admin": "^9.5.0",
     "formik": "^2.2.6",
     "framer-motion": "^3.10.3",
+    "js-sha256": "^0.9.0",
     "next": "10.0.8",
+    "next-auth": "^3.11.2",
     "nookies": "^2.5.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
+    "react-redux": "^7.2.2",
+    "redux-persist": "^6.0.0",
+    "spotify-web-api-js": "^1.5.1",
+    "swr": "^0.5.3",
     "yup": "^0.32.9"
   },
   "devDependencies": {

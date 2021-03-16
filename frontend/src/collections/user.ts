@@ -1,7 +1,7 @@
 import { FirestoreSimple } from '@firestore-simple/web'
-import { FirebaseClient } from '@/libs/FirebaseClient'
+import Firebase from '@/libs/firebase/firebase'
 
-const firestoreSimple = new FirestoreSimple(FirebaseClient.instance.db)
+const firestoreSimple = new FirestoreSimple(Firebase.instance.db)
 
 export type User = {
   id: string

@@ -21,6 +21,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content={config.themeColor} />
           <meta name="format-detection" content="telephone=no" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js" />
           <script
             dangerouslySetInnerHTML={{
               __html: `

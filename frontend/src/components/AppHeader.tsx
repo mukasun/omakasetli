@@ -5,25 +5,17 @@ import { Logo } from '@/components/svg/Logo'
 import { Loader } from '@/components/Loader'
 import { useAuth } from '@/contexts/auth'
 import styles from '@/styles/components/AppHeader.module.scss'
-import {
-  Button,
-  Avatar,
-  Menu,
-  MenuList,
-  MenuButton,
-  MenuItem,
-  MenuDivider,
-  useToast,
-} from '@chakra-ui/react'
-import { FirebaseClient } from '@/libs/FirebaseClient'
+import { Button, Avatar, Menu, MenuList, MenuButton, MenuItem, useToast } from '@chakra-ui/react'
+import { useFirebase } from '@/libs/firebase/hook'
 
 export const AppHeader: React.FC = () => {
   const { currentUser, setCurrentUser } = useAuth()
   const router = useRouter()
   const toast = useToast()
+  const firebase = useFirebase()
 
   const handleSignOut = () => {
-    FirebaseClient.instance.auth.signOut().then(() => {
+    firebase.auth.signOut().then(() => {
       setCurrentUser(null)
       toast({ title: 'ログアウトしました。', status: 'info' })
       router.push('/')
@@ -64,7 +56,11 @@ export const AppHeader: React.FC = () => {
                       <a>マイページ</a>
                     </Link>
                   </MenuItem>
-                  <MenuDivider />
+                  <MenuItem>
+                    <Link href="/settings/playlist">
+                      <a>プレイリスト編集</a>
+                    </Link>
+                  </MenuItem>
                   <MenuItem>
                     <Link href="/settings/account">
                       <a>アカウント設定</a>
