@@ -26,8 +26,8 @@ class Music {
     return getLib(this.platform).authorize()
   }
 
-  isAuthorized() {
-    return getLib(this.platform).isAuthorized()
+  isAuthorized(platform: Platform) {
+    return getLib(platform).isAuthorized()
   }
 
   search(query: string, searchTypes: SearchType[]) {

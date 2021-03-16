@@ -3,7 +3,6 @@ import { PLAYLIST_LIMIT, SEARCH_LIMIT } from '../constants'
 import { supportedAppleMusicSearchTypes, transformPlaylists, transformSongs } from './helpers'
 
 export const configure = () => {
-  console.log(process.env.NEXT_PUBLIC_APPLE_DEV_TOKEN)
   MusicKit.configure({
     developerToken: process.env.NEXT_PUBLIC_APPLE_DEV_TOKEN,
     app: {

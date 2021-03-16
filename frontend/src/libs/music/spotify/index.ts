@@ -105,6 +105,7 @@ const refreshAuth = async () => {
 
 export const isAuthorized = (): boolean => {
   const authTokenExpirationTime = parseInt(localStorage.getItem('spotifyAuthExpirationTime') || '')
+  console.log(authTokenExpirationTime)
   return spotifyWebApi.getAccessToken() !== '' && authTokenExpirationTime > Date.now()
 }
 

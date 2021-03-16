@@ -53,17 +53,17 @@ export const AppHeader: React.FC = () => {
                 <MenuList>
                   <MenuItem>
                     <Link href={`/${currentUser.slug}`}>
-                      <a>マイページ</a>
+                      <a style={{ display: 'block', width: '100%' }}>マイページ</a>
                     </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link href="/settings/playlist">
-                      <a>プレイリスト編集</a>
+                      <a style={{ display: 'block', width: '100%' }}>プレイリスト</a>
                     </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link href="/settings/account">
-                      <a>アカウント設定</a>
+                      <a style={{ display: 'block', width: '100%' }}>アカウント設定</a>
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
