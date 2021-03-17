@@ -4,10 +4,8 @@ import { Playlist, SearchType, Song } from '../types'
 import { PLAYLIST_LIMIT, PLAYLIST_PLACEHOLDER_IMAGE, SEARCH_LIMIT } from '../constants'
 import {
   getPlayerOptions,
-  initializePlayer,
   openSpotifyLoginWindow,
   getAuthTokenFromChildWindow,
-  loadSpotifyWebPlayer,
   transformSongs,
   retryableFunc,
   json2UrlEncoded,
@@ -17,13 +15,22 @@ let spotifyWebApi: SpotifyWebApi.SpotifyWebApiJs
 
 export const configure = async () => {
   spotifyWebApi = new SpotifyWebApi()
-  await loadSpotifyWebPlayer()
+  // await loadSpotifyWebPlayer()
 
-  const authToken = isAuthorized() ? localStorage.getItem('spotifyAuthToken') : ''
+  const authTokenExpirationTime = parseInt(localStorage.getItem('spotifyAuthExpirationTime') || '')
+  const isExpired = authTokenExpirationTime <= Date.now()
+  const isRefreshable = !!localStorage.getItem('spotifyRefreshToken')
+
+  // authorized
+  if (isExpired && isRefreshable) {
+    await refreshAuth()
+  }
+
+  const authToken = localStorage.getItem('spotifyAuthToken') || ''
 
   if (authToken) {
     spotifyWebApi.setAccessToken(authToken)
-    await initializePlayer(authToken)
+    // await initializePlayer(authToken)
   }
 }
 
@@ -74,8 +81,8 @@ export const authorize = async (): Promise<void> => {
     body: fetchBody,
   })
 
-  const { authToken, expiresIn } = await parseSessionData(response)
-  await initializePlayer(authToken)
+  const { expiresIn } = await parseSessionData(response)
+  // await initializePlayer(authToken)
 
   // Refresh 10 seconds before expiry
   setTimeout(refreshAuth, (expiresIn - 10) * 1000)
@@ -96,8 +103,8 @@ const refreshAuth = async () => {
     body: fetchBody,
   })
 
-  const { authToken, expiresIn } = await parseSessionData(response)
-  await initializePlayer(authToken)
+  const { expiresIn } = await parseSessionData(response)
+  // await initializePlayer(authToken)
 
   // Refresh 10 seconds before expiry
   setTimeout(refreshAuth, (expiresIn - 10) * 1000)
@@ -105,7 +112,6 @@ const refreshAuth = async () => {
 
 export const isAuthorized = (): boolean => {
   const authTokenExpirationTime = parseInt(localStorage.getItem('spotifyAuthExpirationTime') || '')
-  console.log(authTokenExpirationTime)
   return spotifyWebApi.getAccessToken() !== '' && authTokenExpirationTime > Date.now()
 }
 
@@ -257,6 +263,7 @@ export const getPlaylists = async (): Promise<Playlist[]> => {
       name: playlist.name,
       description: playlist.description || '',
       image: playlist.images[0] !== undefined ? playlist.images[0].url : PLAYLIST_PLACEHOLDER_IMAGE,
+      platform: 'spotify',
     })
   )
 

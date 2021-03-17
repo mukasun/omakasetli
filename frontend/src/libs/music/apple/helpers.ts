@@ -48,6 +48,7 @@ export const transformPlaylists = (playlists: any): Playlist[] => {
         playlist.attributes.artwork !== undefined
           ? formatImgUrl(playlist.attributes.artwork.url, 100)
           : PLAYLIST_PLACEHOLDER_IMAGE,
+      platform: 'apple',
     })
   )
 }

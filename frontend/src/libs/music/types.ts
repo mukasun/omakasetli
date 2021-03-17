@@ -1,3 +1,5 @@
+import { Platform } from './music'
+
 export type SearchType = 'album' | 'artist' | 'playlist' | 'track'
 
 export type Song = {
@@ -15,4 +17,5 @@ export type Playlist = {
   name: string
   description: string
   image: string
+  platform: Platform
 }

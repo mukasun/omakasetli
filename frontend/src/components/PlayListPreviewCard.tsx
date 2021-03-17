@@ -1,18 +1,40 @@
-import { SpotifyPlaylist } from '@/models/Spotify'
-import { Image } from '@chakra-ui/react'
+import { Playlist } from '@/libs/music/types'
+import {
+  Image,
+  Box,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalHeader,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
+} from '@chakra-ui/react'
 
 interface Props {
-  playlist?: SpotifyPlaylist
+  playlist: Playlist
 }
 
-const PlaylistPreviewCard: React.FC<Props> = ({ playlist }) => {
+export const PlaylistPreviewCard: React.FC<Props> = ({ playlist }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
-    <div className="text-center">
-      {playlist.images.length > 0 && <Image src={playlist.images[0]?.url} />}
-      {playlist.name}
-      <div className="text-gray-500 text-xs">{playlist.tracks.total} TRACKS</div>
-    </div>
+    <>
+      <Box onClick={onOpen}>
+        <Image src={playlist.image} boxShadow={'0 4px 14px rgb(0 0 0 / 10%)'} borderRadius={6} />
+        <Text mt={2} fontWeight={600} isTruncated>
+          {playlist.name}
+        </Text>
+      </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{playlist.name}の楽曲</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>{playlist.platform}</ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
-
-export default PlaylistPreviewCard

@@ -12,9 +12,13 @@ const getLib = (platform: Platform) =>
 
 class Music {
   platform: Platform
+  apple: typeof AppleMusic
+  spotify: typeof Spotify
 
   constructor(platform: Platform) {
     this.platform = platform
+    this.apple = AppleMusic
+    this.spotify = Spotify
   }
 
   async configure() {
