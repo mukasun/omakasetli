@@ -1,4 +1,5 @@
 import { Playlist } from '@/libs/music/types'
+import { PlaylistSongsViewer } from '@/components/PlaylistSongsViewer'
 import {
   Image,
   Box,
@@ -27,12 +28,14 @@ export const PlaylistPreviewCard: React.FC<Props> = ({ playlist }) => {
           {playlist.name}
         </Text>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isCentered isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{playlist.name}の楽曲</ModalHeader>
+          <ModalHeader>{playlist.name}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>{playlist.platform}</ModalBody>
+          <ModalBody>
+            <PlaylistSongsViewer playlist={playlist} />
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>

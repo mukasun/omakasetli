@@ -172,9 +172,9 @@ export const getSongsForPlaylist = async (playlist: Playlist): Promise<Song[]> =
   const playlistWithSongs = await playlistWithSongsResponse.json()
 
   // We only request one song, so get the first from data
-  const trackIds: string[] = playlistWithSongs.data[0].relationships.tracks.data.map(
-    (track: any) => track.attributes.playParams.catalogId
-  )
+  const trackIds: string[] = playlistWithSongs.data[0].relationships.tracks.data
+    .map((track: any) => track.attributes?.playParams?.catalogId)
+    .filter((trackId) => !!trackId)
 
   // Apple has a limit on how many tracks can be requested at a go.
   // TODO: Need to do this multiple times for long playlists

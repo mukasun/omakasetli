@@ -104,3 +104,33 @@ button {
     max-width: 100%;
   }
 }
+
+.swipe {
+  position: absolute;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+}
+
+.card-meta-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-weight: 600;
+  color: #fff;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(0, 0, 0, 0)),
+    to(rgba(0, 0, 0, 0.6))
+  );
+}
