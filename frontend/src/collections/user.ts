@@ -9,7 +9,7 @@ export type User = {
   displayName: string
   thumbnail: string
   bio: string
-  created: Date
+  createdAt: Date
 }
 
 export type UserDoc = {
@@ -17,7 +17,7 @@ export type UserDoc = {
   display_name: string
   thumbnail: string
   bio: string
-  created: Date
+  created_at: Date
 }
 
 export const userCollection = firestoreSimple.collection<User, UserDoc>({
@@ -28,7 +28,7 @@ export const userCollection = firestoreSimple.collection<User, UserDoc>({
       display_name: user.displayName,
       thumbnail: user.thumbnail,
       bio: user.bio,
-      created: user.created,
+      created_at: user.createdAt,
     }
   },
 
@@ -39,7 +39,7 @@ export const userCollection = firestoreSimple.collection<User, UserDoc>({
       displayName: doc.display_name,
       thumbnail: doc.thumbnail,
       bio: doc.bio,
-      created: doc.created.toDate(),
+      createdAt: doc.created_at.toDate(),
     }
   },
 })

@@ -29,7 +29,7 @@ export const UserProfileForm: React.FC = () => {
       displayName: currentUser.displayName,
       bio: currentUser.bio,
       id: currentUser.id,
-      created: currentUser.created,
+      createdAt: currentUser.createdAt,
     })
   }, [currentUser])
 
@@ -40,7 +40,7 @@ export const UserProfileForm: React.FC = () => {
       bio: '',
       displayName: '',
       thumbnail: '',
-      created: new Date(),
+      createdAt: new Date(),
     },
     onSubmit: async (values) => {
       return userCollection

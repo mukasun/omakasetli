@@ -50,7 +50,7 @@ const RegisterPage: NextPage = () => {
       }
 
       return userCollection
-        .set({ ...values, created: firebase.serverTimestamp })
+        .set({ ...values, createdAt: firebase.serverTimestamp })
         .then((id) => {
           userCollection.fetch(id).then((user) => {
             setCurrentUser(user)
