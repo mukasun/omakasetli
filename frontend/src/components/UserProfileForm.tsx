@@ -14,7 +14,7 @@ import {
 import { useAuth } from '@/contexts/auth'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { userCollection } from '@/collections/user'
+import { userCollection } from '@/collections/users'
 import { AvatarUploader } from '@/components/AvatarUploader'
 
 export const UserProfileForm: React.FC = () => {

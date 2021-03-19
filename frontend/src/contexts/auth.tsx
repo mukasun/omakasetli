@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
 
-import { User, userCollection } from '@/collections/user'
+import { User, userCollection } from '@/collections/users'
 import { useRouter } from 'next/router'
 import { useFirebase } from '@/libs/firebase/hook'
 

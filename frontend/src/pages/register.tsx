@@ -8,7 +8,7 @@ import { useAuth } from '@/contexts/auth'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { AvatarUploader } from '@/components/AvatarUploader'
-import { userCollection, isUniqueSlug } from '@/collections/user'
+import { userCollection, isUniqueSlug } from '@/collections/users'
 import { useFirebase } from '@/libs/firebase/hook'
 import { InfoOutlineIcon } from '@chakra-ui/icons'
 import {

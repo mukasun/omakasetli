@@ -31,7 +31,6 @@ export const userCollection = firestoreSimple.collection<User, UserDoc>({
       created_at: user.createdAt,
     }
   },
-
   decode: (doc) => {
     return {
       id: doc.id,
