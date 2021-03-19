@@ -5,6 +5,7 @@ import { supportedAppleMusicSearchTypes, transformPlaylists, transformSongs } fr
 export const configure = () => {
   MusicKit.configure({
     developerToken: process.env.NEXT_PUBLIC_APPLE_DEV_TOKEN,
+    storefrontId: 'jp',
     app: {
       name: 'omakasetli',
       build: '1',
@@ -185,7 +186,7 @@ export const getSongsForPlaylist = async (playlist: Playlist): Promise<Song[]> =
   const trackIdsList = trackIds.join(',')
 
   const playlistSongsResponse = await fetch(
-    `https://api.music.apple.com/v1/catalog/ca/songs?ids=${trackIdsList}`,
+    `https://api.music.apple.com/v1/catalog/jp/songs?ids=${trackIdsList}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_APPLE_DEV_TOKEN}`,

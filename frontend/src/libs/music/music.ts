@@ -26,8 +26,8 @@ class Music {
     await Spotify.configure()
   }
 
-  authorize() {
-    return getLib(this.platform).authorize()
+  authorize(platform: Platform) {
+    return getLib(platform).authorize()
   }
 
   isAuthorized(platform: Platform) {

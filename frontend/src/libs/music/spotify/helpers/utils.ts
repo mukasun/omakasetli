@@ -126,8 +126,11 @@ export const transformSongs = (songs: any): Song[] => {
     artist: formatArtists(song, ', '),
     name: song.name,
     isrc: song.external_ids.isrc,
-    url: song.uri,
+    url: song.external_urls.spotify,
     smallImage: song.album.images[2].url,
     mediumImage: song.album.images[1].url,
+    durationMs: song.duration_ms,
+    releaseYear: Number(song.album.release_date.slice(0, 4)),
+    previewUrl: song.preview_url || '',
   }))
 }

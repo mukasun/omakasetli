@@ -10,6 +10,9 @@ export type Song = {
   url: string
   smallImage: string
   mediumImage: string
+  durationMs: number
+  releaseYear: number
+  previewUrl: string
 }
 
 export type Playlist = {

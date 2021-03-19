@@ -2,6 +2,7 @@
 declare namespace MusicKit {
   interface Config {
     developerToken: string
+    storefrontId: string
     app: {
       name: string
       build: string

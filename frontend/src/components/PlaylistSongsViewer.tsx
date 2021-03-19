@@ -74,7 +74,9 @@ export const PlaylistSongsViewer: React.FC<Props> = ({ playlist }) => {
               <Image src={song.mediumImage} />
               <Flex className="card-meta-box" direction="column" justifyContent="flex-end">
                 <Text fontSize={18}>{song.name}</Text>
-                <Text fontSize={12}>{song.artist}</Text>
+                <Text fontSize={12}>
+                  {song.artist}&nbsp;({song.releaseYear})
+                </Text>
               </Flex>
             </div>
           </TinderCard>

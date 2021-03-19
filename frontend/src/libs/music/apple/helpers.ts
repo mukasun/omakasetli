@@ -34,6 +34,9 @@ export const transformSongs = (songs: any): Song[] => {
       url: song.attributes.url,
       smallImage: formatImgUrl(song.attributes.artwork.url, 100),
       mediumImage: formatImgUrl(song.attributes.artwork.url, 300),
+      durationMs: song.attributes.durationInMillis,
+      releaseYear: Number(song.attributes.releaseDate.slice(0, 4)),
+      previewUrl: song.attributes.previews[0]?.url || '',
     })
   )
 }
