@@ -132,5 +132,6 @@ export const transformSongs = (songs: any): Song[] => {
     durationMs: song.duration_ms,
     releaseYear: Number(song.album.release_date.slice(0, 4)),
     previewUrl: song.preview_url || '',
+    platform: 'spotify',
   }))
 }

@@ -13,6 +13,7 @@ export type Song = {
   durationMs: number
   releaseYear: number
   previewUrl: string
+  platform: Platform
 }
 
 export type Playlist = {

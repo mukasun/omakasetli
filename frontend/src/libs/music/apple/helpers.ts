@@ -37,6 +37,7 @@ export const transformSongs = (songs: any): Song[] => {
       durationMs: song.attributes.durationInMillis,
       releaseYear: Number(song.attributes.releaseDate.slice(0, 4)),
       previewUrl: song.attributes.previews[0]?.url || '',
+      platform: 'apple',
     })
   )
 }

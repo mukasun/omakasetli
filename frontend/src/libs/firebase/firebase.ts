@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
+import { FirestoreSimple } from '@firestore-simple/web'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,7 +16,7 @@ const firebaseConfig = {
 
 class Firebase {
   private static _instance: Firebase
-  private _db: firebase.firestore.Firestore
+  private _db: FirestoreSimple
   private _auth: firebase.auth.Auth
   private _storage: firebase.storage.Storage
   public authProviders = {
@@ -26,7 +27,7 @@ class Firebase {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig)
     }
-    this._db = firebase.firestore()
+    this._db = new FirestoreSimple(firebase.firestore())
     this._auth = firebase.auth()
     this._storage = firebase.storage()
   }
@@ -42,7 +43,7 @@ class Firebase {
     if (this._db) {
       return this._db
     } else {
-      this._db = firebase.firestore()
+      this._db = new FirestoreSimple(firebase.firestore())
       return this._db
     }
   }

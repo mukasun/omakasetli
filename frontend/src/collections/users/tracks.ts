@@ -1,7 +1,5 @@
-import { FirestoreSimple } from '@firestore-simple/web'
 import Firebase from '@/libs/firebase/firebase'
-
-const firestoreSimple = new FirestoreSimple(Firebase.instance.db)
+import { Platform } from '@/libs/music/music'
 
 export type Track = {
   id: string
@@ -16,6 +14,7 @@ export type Track = {
   priority: number
   durationMs: number
   releaseYear: number
+  platform: Platform
 }
 
 export type TrackDoc = {
@@ -30,9 +29,10 @@ export type TrackDoc = {
   priority: number
   duration_ms: number
   release_year: number
+  platform: Platform
 }
 
-export const trackCollection = firestoreSimple.collectionFactory<Track, TrackDoc>({
+export const trackCollectionFactory = Firebase.instance.db.collectionFactory<Track, TrackDoc>({
   encode: (track) => {
     return {
       album: track.album,
@@ -46,6 +46,7 @@ export const trackCollection = firestoreSimple.collectionFactory<Track, TrackDoc
       priority: track.priority,
       duration_ms: track.durationMs,
       release_year: track.releaseYear,
+      platform: track.platform,
     }
   },
   decode: (doc) => {
@@ -62,6 +63,7 @@ export const trackCollection = firestoreSimple.collectionFactory<Track, TrackDoc
       priority: doc.priority,
       durationMs: doc.duration_ms,
       releaseYear: doc.release_year,
+      platform: doc.platform,
     }
   },
 })

@@ -1,7 +1,4 @@
-import { FirestoreSimple } from '@firestore-simple/web'
 import Firebase from '@/libs/firebase/firebase'
-
-const firestoreSimple = new FirestoreSimple(Firebase.instance.db)
 
 export type User = {
   id: string
@@ -20,7 +17,7 @@ export type UserDoc = {
   created_at: Date
 }
 
-export const userCollection = firestoreSimple.collection<User, UserDoc>({
+export const userCollection = Firebase.instance.db.collection<User, UserDoc>({
   path: 'users',
   encode: (user) => {
     return {
