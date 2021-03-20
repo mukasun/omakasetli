@@ -7,11 +7,23 @@ import TinderCard from 'react-tinder-card'
 import Firebase from '@/libs/firebase/firebase'
 import { Track, trackCollectionFactory } from '@/collections/users/tracks'
 import styles from '@/styles/components/PlaylistSongsViewer.module.scss'
-import { Image, Stack, Text, Flex, Spinner, IconButton, Button, useToast } from '@chakra-ui/react'
+import {
+  Image,
+  Stack,
+  Text,
+  Spinner,
+  IconButton,
+  Button,
+  Icon,
+  useToast,
+  HStack,
+} from '@chakra-ui/react'
 import { MdSentimentVerySatisfied, MdSentimentSatisfied, MdSentimentNeutral } from 'react-icons/md'
 import { GrPowerReset } from 'react-icons/gr'
+import { AiOutlineCheckCircle } from 'react-icons/ai'
 interface Props {
   playlist: Playlist
+  onClose: () => void
 }
 
 type SwipeDirection = 'left' | 'right' | 'up' | 'down'
@@ -23,9 +35,9 @@ const PRIORITY_MAP: { [K in SwipeDirection]: number } = {
   right: 3,
 }
 
-export const PlaylistSongsViewer: React.FC<Props> = ({ playlist }) => {
+export const PlaylistSongsViewer: React.FC<Props> = ({ playlist, onClose }) => {
   const music = useMusic()
-  const { currentUser } = useAuth()
+  const { currentUser, importedTrackIds, setImportedTrackIds } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [songs, setSongs] = useState<Song[]>([])
   const [evaluatedTracks, setEvaluatedTracks] = useState<Track[]>([])
@@ -42,17 +54,15 @@ export const PlaylistSongsViewer: React.FC<Props> = ({ playlist }) => {
   useEffect(() => {
     let isMounted = true
     setIsLoading(true)
-
     const musicLib = playlist.platform === 'spotify' ? music.spotify : music.apple
     musicLib
       .getSongsForPlaylist(playlist)
       .then((songs) => {
         if (isMounted) {
-          setSongs(songs)
+          setSongs(songs.filter((s) => !importedTrackIds.includes(s.isrc)))
         }
       })
       .finally(() => setIsLoading(false))
-
     return () => {
       isMounted = false
     }
@@ -83,7 +93,7 @@ export const PlaylistSongsViewer: React.FC<Props> = ({ playlist }) => {
       const index = songs.map((song) => song.isrc).indexOf(toBeRemoved)
       alreadyRemoved.push(toBeRemoved)
       // @ts-ignore
-      childRefs[index].current.swipe(dir) // Swipe the card!
+      childRefs[index].current.swipe(dir)
     }
   }
 
@@ -99,43 +109,54 @@ export const PlaylistSongsViewer: React.FC<Props> = ({ playlist }) => {
       })
       .then(() => {
         toast({ title: '楽曲をインポートしました。', status: 'success' })
+        setImportedTrackIds(importedTrackIds.concat(evaluatedTracks.map((t) => t.isrc)))
+        onClose()
       })
-      .catch((e) => {
-        console.log(e)
+      .catch(() => {
         toast({ title: 'エラーが発生しました。', status: 'error' })
       })
   }
 
   return (
-    <Stack align="center" spacing={4}>
-      <Flex w={300} h={300} justifyContent="center" align="center">
+    <Stack align="center" spacing={4} py={4}>
+      <Stack w={300} h={300} justifyContent="center" align="center">
         {isLoading ? (
           <Spinner />
+        ) : songs.length === 0 ? (
+          <Stack>
+            <Image src="/nodata.png" alt="nodata" />
+            <Text align="center">未追加の楽曲はありません</Text>
+          </Stack>
         ) : (
           <>
-            <Button onClick={save}>保存</Button>
+            <Stack align="center">
+              <Icon as={AiOutlineCheckCircle} boxSize={100} color="green" />
+              <Text fontSize={24} fontWeight={600}>
+                COMPLETE!
+              </Text>
+            </Stack>
             {songs.map((song, index) => (
               <TinderCard
                 // @ts-ignore
                 ref={childRefs[index]}
-                className="swipe"
+                className={styles.swipeWrapper}
                 key={song.isrc}
                 onSwipe={(dir) => swiped(dir, song)}
               >
-                <div className="card">
+                <div className={styles.card}>
                   <Image src={song.mediumImage} objectFit="cover" w={300} h={300} />
-                  <Flex className="card-meta-box" direction="column" justifyContent="flex-end">
+                  <Stack className={styles.cardImageOverlay} justifyContent="flex-end">
                     <Text fontSize={18}>{song.name}</Text>
                     <Text fontSize={12}>
                       {song.artist}&nbsp;({song.releaseYear})
                     </Text>
-                  </Flex>
+                  </Stack>
                 </div>
               </TinderCard>
             ))}
           </>
         )}
-      </Flex>
+      </Stack>
       <div className={styles.controller}>
         <IconButton
           size="lg"
@@ -174,6 +195,12 @@ export const PlaylistSongsViewer: React.FC<Props> = ({ playlist }) => {
           onClick={() => swipe('right')}
         />
       </div>
+      <HStack spacing={4}>
+        <Button onClick={onClose}>閉じる</Button>
+        <Button colorScheme="green" onClick={save}>
+          保存
+        </Button>
+      </HStack>
     </Stack>
   )
 }

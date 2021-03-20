@@ -28,13 +28,13 @@ export const PlaylistPreviewCard: React.FC<Props> = ({ playlist }) => {
           {playlist.name}
         </Text>
       </Box>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+      <Modal isCentered size="sm" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{playlist.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <PlaylistSongsViewer playlist={playlist} />
+            <PlaylistSongsViewer playlist={playlist} onClose={onClose} />
           </ModalBody>
         </ModalContent>
       </Modal>

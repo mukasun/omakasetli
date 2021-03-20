@@ -20,10 +20,14 @@ import {
   AlertDescription,
   Stack,
   Link,
+  Flex,
+  Spacer,
+  IconButton,
 } from '@chakra-ui/react'
 import { Playlist } from '@/libs/music/types'
 import { useMusic } from '@/libs/music/hook'
 import { PlaylistPreviewCard } from '@/components/PlaylistPreviewCard'
+import { RiPlayListFill } from 'react-icons/ri'
 import NextLink from 'next/link'
 
 const PlayListImportPage: NextPage = () => {
@@ -63,9 +67,21 @@ const PlayListImportPage: NextPage = () => {
 
   return (
     <>
-      <SEOMeta title="プレイリスト" />
-      <Container maxW="container.lg">
-        <Tabs align="center" isFitted>
+      <SEOMeta title="マイプレイリスト" />
+      <Container maxW="container.lg" pt={4}>
+        <Flex alignItems="center">
+          <Heading size="lg">楽曲インポート</Heading>
+          <Spacer />
+          <Link href="/settings/playlist" passHref>
+            <IconButton
+              aria-label="プレイリスト"
+              fontSize={24}
+              colorScheme="teal"
+              icon={<RiPlayListFill />}
+            />
+          </Link>
+        </Flex>
+        <Tabs align="center" mt={8} isFitted>
           <TabList>
             <Tab>
               <MdSearch size={24} />
