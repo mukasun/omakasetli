@@ -1,7 +1,4 @@
-import { FirestoreSimple } from '@firestore-simple/web'
-import { FirebaseClient } from '@/libs/FirebaseClient'
-
-const firestoreSimple = new FirestoreSimple(FirebaseClient.instance.db)
+import Firebase from '@/libs/firebase/firebase'
 
 export type User = {
   id: string
@@ -9,7 +6,7 @@ export type User = {
   displayName: string
   thumbnail: string
   bio: string
-  created: Date
+  createdAt: Date
 }
 
 export type UserDoc = {
@@ -17,10 +14,10 @@ export type UserDoc = {
   display_name: string
   thumbnail: string
   bio: string
-  created: Date
+  created_at: Date
 }
 
-export const userCollection = firestoreSimple.collection<User, UserDoc>({
+export const userCollection = Firebase.instance.db.collection<User, UserDoc>({
   path: 'users',
   encode: (user) => {
     return {
@@ -28,10 +25,9 @@ export const userCollection = firestoreSimple.collection<User, UserDoc>({
       display_name: user.displayName,
       thumbnail: user.thumbnail,
       bio: user.bio,
-      created: user.created,
+      created_at: user.createdAt,
     }
   },
-
   decode: (doc) => {
     return {
       id: doc.id,
@@ -39,7 +35,7 @@ export const userCollection = firestoreSimple.collection<User, UserDoc>({
       displayName: doc.display_name,
       thumbnail: doc.thumbnail,
       bio: doc.bio,
-      created: doc.created.toDate(),
+      createdAt: doc.created_at.toDate(),
     }
   },
 })

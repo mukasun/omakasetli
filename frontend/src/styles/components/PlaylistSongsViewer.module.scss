@@ -1,0 +1,56 @@
+.controller {
+  display: grid;
+  grid-template-rows: 48px 48px 48px;
+  grid-template-columns: 48px 48px 48px;
+}
+
+.controllerPositionTop {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+}
+
+.controllerPositionLeft {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+
+.controllerPositionRight {
+  grid-row: 2 / 3;
+  grid-column: 3 / 4;
+}
+
+.controllerPositionBottom {
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.controllerPositionCenter {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+}
+
+.cardImageOverlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-weight: 600;
+  color: #fff;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(0, 0, 0, 0)),
+    to(rgba(0, 0, 0, 0.6))
+  );
+}
+
+.swipeWrapper {
+  position: absolute;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+}

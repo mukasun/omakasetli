@@ -3,14 +3,15 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { SEOMeta } from '@/components/SEOMeta'
 import styles from '@/styles/pages/signin.module.scss'
-import { FirebaseClient } from '@/libs/FirebaseClient'
 import { useAuth } from '@/contexts/auth'
+import { useFirebase } from '@/libs/firebase/hook'
 import { useToast, Button, Stack } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc'
 
 const SignInPage: NextPage = () => {
   const router = useRouter()
   const { currentUser } = useAuth()
+  const firebase = useFirebase()
   const toast = useToast()
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const SignInPage: NextPage = () => {
   }, [currentUser])
 
   const signInWithGoogle = () => {
-    FirebaseClient.instance.auth.signInWithPopup(FirebaseClient.instance.authProviders.google)
+    firebase.auth.signInWithPopup(firebase.authProviders.google)
   }
 
   return (
