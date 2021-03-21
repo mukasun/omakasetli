@@ -19,7 +19,11 @@ export const UserServiceConnection: React.FC = () => {
     music
       .authorize(platform)
       .then(() => {
-        setIsConnectedSpotify(true)
+        if (platform === 'spotify') {
+          setIsConnectedSpotify(true)
+        } else {
+          setIsConnectedApple(true)
+        }
         toast({ title: `${platform}と連携しました。`, status: 'success' })
       })
       .catch((e) => {

@@ -70,6 +70,10 @@ class Firebase {
     return firebase.firestore.FieldValue.serverTimestamp()
   }
 
+  public get timestamp() {
+    return firebase.firestore.Timestamp
+  }
+
   public get storageTaskEvent() {
     return firebase.storage.TaskEvent
   }

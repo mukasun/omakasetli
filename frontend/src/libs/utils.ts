@@ -14,3 +14,12 @@ export const millisToMinutesAndSeconds = (millis: number) => {
   const seconds = ((millis % 60000) / 1000).toFixed(0)
   return minutes + ':' + (Number(seconds) < 10 ? '0' : '') + seconds
 }
+
+export const genRamdomNumberCode = (digits: number) => {
+  const CODE_TABLE = '0123456789'
+  let r = ''
+  for (let i = 0, k = CODE_TABLE.length; i < digits; i++) {
+    r += CODE_TABLE.charAt(Math.floor(k * Math.random()))
+  }
+  return r
+}

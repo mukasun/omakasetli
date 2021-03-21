@@ -10,6 +10,20 @@ service cloud.firestore {
         allow write: if isUser(userId);
       }
     }
+
+    match /rooms/{roomId} {
+      allow read: if isAuthorized();
+      allow write: if isAuthorized();
+
+      match /members/{memberId} {
+        allow read: if isAuthorized();
+        allow write: if isUser(memberId);
+      }
+    }
+
+    match /{path=**}/members/{memberId} {
+      allow read: if isAuthorized();
+    }
   }
 }
 

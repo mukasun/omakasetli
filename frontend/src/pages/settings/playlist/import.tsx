@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import NextLink from 'next/link'
 import { useState, useEffect } from 'react'
 import { SEOMeta } from '@/components/SEOMeta'
 import { useRequireUser } from '@/hooks/useRequireUser'
@@ -28,7 +29,6 @@ import { Playlist } from '@/libs/music/types'
 import { useMusic } from '@/libs/music/hook'
 import { PlaylistPreviewCard } from '@/components/PlaylistPreviewCard'
 import { RiPlayListFill } from 'react-icons/ri'
-import NextLink from 'next/link'
 
 const PlayListImportPage: NextPage = () => {
   useRequireUser()
@@ -72,14 +72,16 @@ const PlayListImportPage: NextPage = () => {
         <Flex alignItems="center">
           <Heading size="lg">楽曲インポート</Heading>
           <Spacer />
-          <Link href="/settings/playlist" passHref>
-            <IconButton
-              aria-label="プレイリスト"
-              fontSize={24}
-              colorScheme="teal"
-              icon={<RiPlayListFill />}
-            />
-          </Link>
+          <NextLink href="/settings/playlist" passHref>
+            <a>
+              <IconButton
+                aria-label="プレイリスト"
+                fontSize={24}
+                colorScheme="teal"
+                icon={<RiPlayListFill />}
+              />
+            </a>
+          </NextLink>
         </Flex>
         <Tabs align="center" mt={8} isFitted>
           <TabList>

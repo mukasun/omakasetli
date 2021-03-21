@@ -3,9 +3,12 @@ import styles from '@/styles/pages/register.module.scss'
 import { SEOMeta } from '@/components/SEOMeta'
 import { UserProfileForm } from '@/components/UserProfileForm'
 import { UserServiceConnection } from '@/components/UserServiceConnection'
+import { useRequireUser } from '@/hooks/useRequireUser'
 import { Tabs, TabList, Tab, TabPanel, TabPanels } from '@chakra-ui/react'
 
 const AccountSettingPage: NextPage = () => {
+  useRequireUser()
+
   return (
     <>
       <SEOMeta title="アカウント設定" />

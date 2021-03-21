@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useEffect, useState, useMemo, useCallback } from 'react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { SEOMeta } from '@/components/SEOMeta'
 import { TracksTable } from '@/components/TracksTable'
 import { TrackActionDialog } from '@/components/TrackActionDialog'
@@ -92,9 +92,16 @@ const PlayListPage: NextPage = () => {
         <Flex alignItems="center">
           <Heading size="lg">マイプレイリスト</Heading>
           <Spacer />
-          <Link href="/settings/playlist/import" passHref>
-            <IconButton aria-label="楽曲を追加" fontSize={24} colorScheme="teal" icon={<MdAdd />} />
-          </Link>
+          <NextLink href="/settings/playlist/import" passHref>
+            <a>
+              <IconButton
+                aria-label="楽曲を追加"
+                fontSize={24}
+                colorScheme="teal"
+                icon={<MdAdd />}
+              />
+            </a>
+          </NextLink>
         </Flex>
         <Box mt={8}>
           <TracksTable
