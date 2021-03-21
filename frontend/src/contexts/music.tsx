@@ -1,7 +1,6 @@
 import React from 'react'
 import { MusicContext } from '@/libs/music'
 import { useMusicLoading } from '@/hooks/useMusicLoading'
-// import { Spinner } from '@chakra-ui/react'
 
 type MusicProviderProps = {
   children: React.ReactNode
