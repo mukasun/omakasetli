@@ -60,7 +60,7 @@ const parseSessionData = async (
 }
 
 export const authorize = async (): Promise<void> => {
-  const codeVerifier = cryptoRandomString(100)
+  const codeVerifier = cryptoRandomString({ length: 100 })
   const childWindow = openSpotifyLoginWindow(codeVerifier)
 
   const { code } = await getAuthTokenFromChildWindow(childWindow)
