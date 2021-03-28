@@ -17,7 +17,7 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicons/favicon.ico" />
           <meta name="msapplication-TileColor" content={config.themeColor} />
           <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
-          <meta name="apple-mobile-web-app-title" content="Zenn" />
+          <meta name="apple-mobile-web-app-title" content="おまかセトリ" />
           <meta name="theme-color" content={config.themeColor} />
           <meta name="format-detection" content="telephone=no" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />

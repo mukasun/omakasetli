@@ -1,0 +1,32 @@
+name: Deploy Cloud Functions
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    name: Deploy Functions
+    runs-on: ubuntu-latest
+    env:
+      REGION: asia-northeast1
+      RUNTIME: python38
+      FIXSTARS_API_TOKEN: ${{ secrets.FIXSTARS_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_email: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      - name: Deploy Functions
+        run: >
+          gcloud functions deploy setlist_solver
+          --source ./backend
+          --entry-point solve
+          --region=${REGION}
+          --runtime ${RUNTIME}
+          --trigger-http
+          --allow-unauthenticated
+          --set-env-vars FIXSTARS_API_TOKEN=${FIXSTARS_API_TOKEN},ENV=production

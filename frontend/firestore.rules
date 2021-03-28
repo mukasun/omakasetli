@@ -19,6 +19,11 @@ service cloud.firestore {
         allow read: if isAuthorized();
         allow write: if isUser(memberId);
       }
+
+      match /setlists/{setlistId} {
+        allow read: if isAuthorized();
+        allow write: if false;
+      }
     }
 
     match /{path=**}/members/{memberId} {
