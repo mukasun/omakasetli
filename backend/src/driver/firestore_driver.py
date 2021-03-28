@@ -14,9 +14,14 @@ class FirestoreDriverImpl(FirestoreDriver):
     def __init__(self, db: Union[firestore._FirestoreClient, None] = None, cache_enabled: bool = False) -> None:
         self.cache_enabled = cache_enabled
         if not db:
-            service_account_file = os.path.join(os.path.dirname(__file__), "service-account.json")
-            cred = credentials.Certificate(service_account_file)
-            firebase_admin.initialize_app(cred)
+            if os.environ.get("ENV") == "production":
+                cred = credentials.ApplicationDefault()
+                firebase_admin.initialize_app(cred, {"projectId": "omakasetli"})
+            else:
+                service_account_file = os.path.join(os.path.dirname(__file__), "service-account.json")
+                cred = credentials.Certificate(service_account_file)
+                firebase_admin.initialize_app(cred)
+
             self.db = firestore.client()
         else:
             self.db = db
