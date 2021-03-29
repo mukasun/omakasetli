@@ -15,6 +15,10 @@ export const millisToMinutesAndSeconds = (millis: number) => {
   return minutes + ':' + (Number(seconds) < 10 ? '0' : '') + seconds
 }
 
+export const orgRound = (value: number, base: number) => {
+  return Math.round(value * base) / base
+}
+
 export const genRamdomNumberCode = (digits: number) => {
   const CODE_TABLE = '0123456789'
   let r = ''
