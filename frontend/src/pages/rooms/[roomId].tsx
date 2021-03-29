@@ -56,12 +56,14 @@ const RoomPage: NextPage = () => {
   const [selectedSetlistIndex, setSelectedSetlistIndex] = useState(-1)
   const [timeLimit, setTimeLimit] = useState<number | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(false)
+  const [isCheckedOwner, setIsCheckedOwner] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { currentUser, setJoiningRoomId } = useAuth()
   const toast = useToast()
 
   const isOwner = useMemo(() => {
     if (!currentUser || !room) return false
+    setIsCheckedOwner(true)
     return currentUser.id === room.owner
   }, [currentUser, room])
 
@@ -69,6 +71,7 @@ const RoomPage: NextPage = () => {
     if (typeof roomId !== 'string' || !currentUser) return
     const memberCollection = memberCollectionFactory.create(`rooms/${roomId}/members`)
     const setlistCollection = setlistCollectionFactory.create(`rooms/${roomId}/setlists`)
+    console.log('1st useEffect')
 
     Promise.all([
       roomCollection.fetch(roomId),
@@ -104,8 +107,16 @@ const RoomPage: NextPage = () => {
         })
       })
 
+    return () => unsubscribeMembers()
+  }, [roomId, currentUser])
+
+  useEffect(() => {
+    if (!isCheckedOwner) return
+    const setlistCollection = setlistCollectionFactory.create(`rooms/${roomId}/setlists`)
+    console.log('2nd useEffect')
     let unsubscribeSetlists = () => null
-    if (currentUser && !isOwner) {
+    if (!isOwner) {
+      console.log('unsubscribeSetlists')
       unsubscribeSetlists = setlistCollection
         .where('created_at', '>', Firebase.instance.timestamp.fromDate(new Date()))
         .onSnapshot((querySnapshot, toObject) => {
@@ -118,12 +129,8 @@ const RoomPage: NextPage = () => {
           })
         })
     }
-
-    return () => {
-      unsubscribeMembers()
-      unsubscribeSetlists()
-    }
-  }, [roomId, currentUser])
+    return () => unsubscribeSetlists()
+  }, [isCheckedOwner])
 
   const closeRoom = () => {
     if (typeof roomId !== 'string') return
