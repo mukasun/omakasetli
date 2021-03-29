@@ -45,7 +45,7 @@ export const SetlistViewer: React.FC<Props> = ({ members, setlist }) => {
         <Tab>構成曲</Tab>
         <Tab>満足度</Tab>
       </TabList>
-      <TabPanels H={400} maxH={400} overflow="scroll">
+      <TabPanels H={405} maxH={405} overflow="scroll">
         <TabPanel px={0}>
           <Table variant="simple" style={{ tableLayout: 'fixed' }}>
             <Thead>

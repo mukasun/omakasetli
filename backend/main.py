@@ -23,6 +23,8 @@ def solve(request: Request):
         }
         return '', 204, headers
 
+    headers = {'Access-Control-Allow-Origin': '*'}
+
     try:
         if "content-type" not in request.headers:
             raise ClientException("Require HTTP header 'Content-Type'")
@@ -41,14 +43,10 @@ def solve(request: Request):
         else:
             raise ClientException(f"Unknown content type: {content_type}")
 
-        headers = {
-            'Access-Control-Allow-Origin': '*',
-        }
-
         return solver_resource.solve(room_id, time_limit, c_weight, timeout, num_unit_step), 200, headers
 
     except BaseException as e:
-        return jsonify({"error": e.message}), e.code
+        return jsonify({"error": e.message}), e.code, headers
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ export type Setlist = {
   scoreVar: number
   scores: number[]
   totalTime: number
+  createdAt: Date
   tracks: {
     id: string
     duration_ms: number
@@ -24,6 +25,7 @@ export type SetlistDoc = {
   score_var: number
   scores: number[]
   total_time: number
+  created_at: Date
   tracks: {
     id: string
     duration_ms: number
@@ -44,6 +46,7 @@ export const setlistCollectionFactory = Firebase.instance.db.collectionFactory<S
       scores: setlist.scores,
       total_time: setlist.totalTime,
       tracks: setlist.tracks,
+      created_at: setlist.createdAt,
     }),
     decode: (doc) => ({
       id: doc.id,
@@ -53,6 +56,7 @@ export const setlistCollectionFactory = Firebase.instance.db.collectionFactory<S
       scores: doc.scores,
       totalTime: doc.total_time,
       tracks: doc.tracks,
+      createdAt: doc.created_at,
     }),
   }
 )

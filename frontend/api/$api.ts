@@ -12,9 +12,16 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
 
   return {
     setlist_solver: {
-      post: (option: { body: Methods0['post']['reqBody']; config?: T }) =>
-        fetch<Methods0['post']['resBody']>(prefix, PATH0, POST, option).json(),
-      $post: (option: { body: Methods0['post']['reqBody']; config?: T }) =>
+      post: (option: {
+        body: Methods0['post']['reqBody']
+        headers: Methods0['post']['reqHeaders']
+        config?: T
+      }) => fetch<Methods0['post']['resBody']>(prefix, PATH0, POST, option).json(),
+      $post: (option: {
+        body: Methods0['post']['reqBody']
+        headers: Methods0['post']['reqHeaders']
+        config?: T
+      }) =>
         fetch<Methods0['post']['resBody']>(prefix, PATH0, POST, option)
           .json()
           .then((r) => r.body),
