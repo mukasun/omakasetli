@@ -89,7 +89,7 @@ const RoomPage: NextPage = () => {
         toast({ title: 'データ取得時にエラーが発生しました', status: 'error' })
       })
 
-    const unsubscribe = memberCollection
+    const unsubscribeMembers = memberCollection
       .where('joined_at', '>', Firebase.instance.timestamp.fromDate(new Date()))
       .onSnapshot((querySnapshot, toObject) => {
         querySnapshot.docChanges().forEach((change) => {
@@ -103,7 +103,26 @@ const RoomPage: NextPage = () => {
           }
         })
       })
-    return () => unsubscribe()
+
+    let unsubscribeSetlists = () => null
+    if (currentUser && !isOwner) {
+      unsubscribeSetlists = setlistCollection
+        .where('created_at', '>', Firebase.instance.timestamp.fromDate(new Date()))
+        .onSnapshot((querySnapshot, toObject) => {
+          querySnapshot.docChanges().forEach((change) => {
+            const changedSetlist = toObject(change.doc)
+            if (change.type === 'added') {
+              toast({ title: '新しいセットリストが作成されました。', status: 'info' })
+              setSetlists((oldSetlists) => [...oldSetlists, changedSetlist])
+            }
+          })
+        })
+    }
+
+    return () => {
+      unsubscribeMembers()
+      unsubscribeSetlists()
+    }
   }, [roomId, currentUser])
 
   const closeRoom = () => {
@@ -145,6 +164,9 @@ const RoomPage: NextPage = () => {
           room_id: roomId,
           time_limit: timeLimit * 60,
         },
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
       .then((res) => {
         setSetlists([
@@ -157,6 +179,7 @@ const RoomPage: NextPage = () => {
             scores: res.body.scores,
             totalTime: res.body.total_time,
             tracks: res.body.tracks,
+            createdAt: new Date(),
           },
         ])
         toast({ title: 'セットリストが生成されました', status: 'success' })

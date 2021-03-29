@@ -48,7 +48,7 @@ class FirestoreDriverImpl(FirestoreDriver):
 
     def add_room_setlist(self, room_id: str, setlist: dict):
         ref = self.db.collection("rooms").document(room_id).collection("setlists")
-        ref.add(setlist)
+        ref.add(dict(setlist, **{"created_at": firestore.SERVER_TIMESTAMP}))
 
     def __load_document(self, cache_key, ref) -> Union[dict, None]:
         data = self.__restore_cache(cache_key)
