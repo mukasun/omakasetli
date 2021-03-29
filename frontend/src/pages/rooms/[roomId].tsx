@@ -71,7 +71,6 @@ const RoomPage: NextPage = () => {
     if (typeof roomId !== 'string' || !currentUser) return
     const memberCollection = memberCollectionFactory.create(`rooms/${roomId}/members`)
     const setlistCollection = setlistCollectionFactory.create(`rooms/${roomId}/setlists`)
-    console.log('1st useEffect')
 
     Promise.all([
       roomCollection.fetch(roomId),
@@ -113,10 +112,8 @@ const RoomPage: NextPage = () => {
   useEffect(() => {
     if (!isCheckedOwner) return
     const setlistCollection = setlistCollectionFactory.create(`rooms/${roomId}/setlists`)
-    console.log('2nd useEffect')
     let unsubscribeSetlists = () => null
     if (!isOwner) {
-      console.log('unsubscribeSetlists')
       unsubscribeSetlists = setlistCollection
         .where('created_at', '>', Firebase.instance.timestamp.fromDate(new Date()))
         .onSnapshot((querySnapshot, toObject) => {
