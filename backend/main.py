@@ -14,6 +14,15 @@ solver_resource = SolverResource(
 
 
 def solve(request: Request):
+    if request.method == 'OPTIONS':
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '3600',
+        }
+        return '', 204, headers
+
     try:
         if "content-type" not in request.headers:
             raise ClientException("Require HTTP header 'Content-Type'")
@@ -32,7 +41,11 @@ def solve(request: Request):
         else:
             raise ClientException(f"Unknown content type: {content_type}")
 
-        return solver_resource.solve(room_id, time_limit, c_weight, timeout, num_unit_step)
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+        }
+
+        return solver_resource.solve(room_id, time_limit, c_weight, timeout, num_unit_step), 200, headers
 
     except BaseException as e:
         return jsonify({"error": e.message}), e.code

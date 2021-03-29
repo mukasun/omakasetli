@@ -32,7 +32,7 @@ class FirestoreDriverImpl(FirestoreDriver):
         return room
 
     def get_room_members(self, room_id: str) -> Union[List[dict], None]:
-        ref = self.db.collection("rooms").document(room_id).collection("members")
+        ref = self.db.collection("rooms").document(room_id).collection("members").order_by('joined_at')
         members = self.__load_documents(f"room-{room_id}-members", ref)
         return members
 
