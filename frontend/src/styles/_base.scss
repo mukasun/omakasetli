@@ -86,19 +86,8 @@ button {
 
 .wrapper {
   padding: 0 40px;
+  padding: 0 1rem;
   margin: 0 auto;
-
-  @include mq(xs) {
-    padding: 0 14px;
-  }
-
-  @include mq(sm) {
-    padding: 0 20px;
-  }
-
-  @include mq(md) {
-    padding: 0 25px;
-  }
 
   @include mq(lg) {
     max-width: 100%;

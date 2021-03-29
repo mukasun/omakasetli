@@ -12,7 +12,7 @@ from .base_solver import BaseSolver
 class QuboSolver(BaseSolver):
     """分散を最小化しつつ満足度が最大となるように選択するソルバー"""
 
-    def solve(self, c_weight: float = 5, timeout: int = 10000, num_unit_step: int = 10) -> Setlist:
+    def solve(self, c_weight: float = 3, timeout: int = 1000, num_unit_step: int = 10) -> Setlist:
         """
 
         Args:
@@ -26,6 +26,7 @@ class QuboSolver(BaseSolver):
         self.q = gen_symbols(BinaryPoly, self.num_tracks)
         energy_function = self.energy(c_weight)
         model = BinaryQuadraticModel(energy_function)
+        print(f"timeout: {timeout}, c_weiht: {c_weight}")
 
         fixstars_client = FixstarsClient()
         fixstars_client.token = os.environ.get("FIXSTARS_API_TOKEN")
@@ -49,6 +50,7 @@ class QuboSolver(BaseSolver):
             tracks=tracks,
             scores=user_scores.tolist(),
             score_sum=user_scores.sum(),
+            score_avg=user_scores.mean(),
             score_var=user_scores.var(),
             total_time=total_time
         )
