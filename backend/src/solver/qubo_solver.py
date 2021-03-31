@@ -26,7 +26,6 @@ class QuboSolver(BaseSolver):
         self.q = gen_symbols(BinaryPoly, self.num_tracks)
         energy_function = self.energy(c_weight)
         model = BinaryQuadraticModel(energy_function)
-        print(f"timeout: {timeout}, c_weiht: {c_weight}")
 
         fixstars_client = FixstarsClient()
         fixstars_client.token = os.environ.get("FIXSTARS_API_TOKEN")

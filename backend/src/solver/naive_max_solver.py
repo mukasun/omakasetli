@@ -20,12 +20,12 @@ class NaiveMaxSolver(BaseSolver):
         user_scores = np.zeros(self.num_users)
 
         for track in sorted_candidates:
-            track_time = track.duration_ms // 1000
-            if total_time + track_time > self.time_limit:
-                break
+            track_time = track.duration_ms
             user_scores += np.array(track.p)
             total_time += track_time
             tracks.append(track)
+            if total_time > self.time_limit * 1000:
+                break
 
         return Setlist(
             tracks=tracks,
