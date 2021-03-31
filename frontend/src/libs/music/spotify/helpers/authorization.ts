@@ -26,6 +26,7 @@ export const openSpotifyLoginWindow = (codeVerifier: string) => {
     'user-read-private',
     'user-modify-playback-state',
     'user-read-playback-state',
+    'playlist-read-private',
   ].join(' ')
 
   const spotify_auth_url =
