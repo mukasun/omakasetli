@@ -10,7 +10,6 @@ const Page: NextPage = () => {
     <>
       <SEOMeta
         title={`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}
-        description={config.siteMeta.description}
         path="/"
         removeSiteNameFromTitle={true}
       />
