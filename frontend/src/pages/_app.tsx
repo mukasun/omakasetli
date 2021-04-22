@@ -28,7 +28,9 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
           <MusicProvider>
             <AuthProvider>
               <AppHeader />
-              <Component {...pageProps} />
+              <div style={{ paddingTop: 66 }}>
+                <Component {...pageProps} />
+              </div>
               <AppFooter />
             </AuthProvider>
           </MusicProvider>

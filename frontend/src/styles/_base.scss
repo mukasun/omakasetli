@@ -84,6 +84,15 @@ button {
   }
 }
 
+#header {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e8;
+}
+
 .wrapper {
   padding: 0 40px;
   padding: 0 1rem;
@@ -92,4 +101,15 @@ button {
   @include mq(lg) {
     max-width: 100%;
   }
+}
+
+.circle-number {
+  width: 32px;
+  height: 32px;
+  font-weight: bold;
+  line-height: 32px;
+  color: #fff;
+  text-align: center;
+  background-color: #38a169;
+  border-radius: 50%;
 }
