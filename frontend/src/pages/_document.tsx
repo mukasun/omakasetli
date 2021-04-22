@@ -15,11 +15,22 @@ class MyDocument extends Document {
           <link rel="manifest" href="/favicons/site.webmanifest" />
           <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color={config.themeColor} />
           <link rel="shortcut icon" href="/favicons/favicon.ico" />
+          <meta name="description" content={config.siteMeta.description} />
           <meta name="msapplication-TileColor" content={config.themeColor} />
           <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
           <meta name="apple-mobile-web-app-title" content="おまかセトリ" />
           <meta name="theme-color" content={config.themeColor} />
           <meta name="format-detection" content="telephone=no" />
+          <meta property="og:url" content={config.siteRoot} />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:title"
+            content={`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}
+          />
+          <meta property="og:description" content={config.siteMeta.description} />
+          <meta property="og:site_name" content={config.siteMeta.title} />
+          <meta property="og:image" content={`${config.siteRoot}/default_og.png`} />
+          <meta name="twitter:card" content="summary_large_image" />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
           <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js" />
           <script
