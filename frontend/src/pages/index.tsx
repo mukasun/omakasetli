@@ -1,4 +1,3 @@
-import { config } from '@@/site.config'
 import { SEOMeta } from '@/components/SEOMeta'
 import { NextPage } from 'next'
 import { Logo } from '@/components/svg/Logo'
@@ -8,11 +7,7 @@ import { FaSpotify, FaApple } from 'react-icons/fa'
 const Page: NextPage = () => {
   return (
     <>
-      <SEOMeta
-        title={`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}
-        path="/"
-        removeSiteNameFromTitle={true}
-      />
+      <SEOMeta path="/" removeSiteNameFromTitle={true} />
       <Box background="#FFF5E3">
         <Flex justify="center" align="center" flexDirection={['column', 'row']} py={12}>
           <VStack align="center" spacing={8} mr={12}>
