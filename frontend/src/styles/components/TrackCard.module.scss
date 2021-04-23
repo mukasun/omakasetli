@@ -1,0 +1,16 @@
+.ribon {
+  position: relative;
+}
+
+.caption {
+  display: inline;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
+    border-right: 3em solid #38a169;
+    border-bottom: 3em solid transparent;
+  }
+}

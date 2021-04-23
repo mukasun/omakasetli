@@ -21,6 +21,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   useToast,
+  Box,
 } from '@chakra-ui/react'
 
 const RegisterPage: NextPage = () => {
@@ -84,7 +85,7 @@ const RegisterPage: NextPage = () => {
   return (
     <>
       <SEOMeta title="ユーザー登録" path="/register" />
-      <section className="wrapper">
+      <Box p={4}>
         <div className={styles.signinForm}>
           <div className={styles.titleContainer}>
             <p className={styles.title}>ユーザー登録</p>
@@ -136,7 +137,7 @@ const RegisterPage: NextPage = () => {
             </form>
           </div>
         </div>
-      </section>
+      </Box>
     </>
   )
 }
