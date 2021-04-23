@@ -4,7 +4,7 @@ import { SEOMeta } from '@/components/SEOMeta'
 import { UserProfileForm } from '@/components/UserProfileForm'
 import { UserServiceConnection } from '@/components/UserServiceConnection'
 import { useRequireUser } from '@/hooks/useRequireUser'
-import { Tabs, TabList, Tab, TabPanel, TabPanels } from '@chakra-ui/react'
+import { Tabs, TabList, Tab, TabPanel, TabPanels, Box } from '@chakra-ui/react'
 
 const AccountSettingPage: NextPage = () => {
   useRequireUser()
@@ -12,7 +12,7 @@ const AccountSettingPage: NextPage = () => {
   return (
     <>
       <SEOMeta title="アカウント設定" />
-      <section className="wrapper">
+      <Box p={4}>
         <div className={styles.signinForm}>
           <div className={styles.titleContainer}>
             <p className={styles.title}>アカウント設定</p>
@@ -32,7 +32,7 @@ const AccountSettingPage: NextPage = () => {
             </TabPanels>
           </Tabs>
         </div>
-      </section>
+      </Box>
     </>
   )
 }

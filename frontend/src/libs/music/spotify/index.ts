@@ -7,7 +7,6 @@ import {
   openSpotifyLoginWindow,
   getAuthTokenFromChildWindow,
   transformSongs,
-  retryableFunc,
   json2UrlEncoded,
 } from './helpers'
 
@@ -115,70 +114,79 @@ export const isAuthorized = (): boolean => {
   return spotifyWebApi.getAccessToken() !== '' && authTokenExpirationTime > Date.now()
 }
 
-export const search = async (query: string, searchTypes: SearchType[]): Promise<Song[]> => {
+export const search = async (query: string, searchTypes: SearchType[]): Promise<Playlist[]> => {
   if (!query) return []
   const response = await spotifyWebApi.search(query, searchTypes, {
     limit: SEARCH_LIMIT,
   })
-  return transformSongs(response.tracks?.items)
-}
-
-const findSongByIsrc = async (song: Song): Promise<Song> => {
-  const response = await spotifyWebApi.searchTracks(`isrc:${song.isrc}`)
-
-  if (!response.tracks.items.length) {
-    return Promise.reject(`Spotify could not find song: ${song.name}. ISRC: ${song.isrc}`)
-  }
-
-  const transformedResults = transformSongs(response.tracks.items)
-  return transformedResults[0]
-}
-
-export const queueAndPlay = async (song: Song): Promise<any> => {
-  const { playerId } = getPlayerOptions()
-  const SPOTIFY_BASE_URL = 'spotify'
-
-  let spotifySong = song
-
-  try {
-    if (!spotifySong.url.includes(SPOTIFY_BASE_URL)) {
-      spotifySong = await findSongByIsrc(song)
-    }
-  } catch (error) {
-    console.warn('Spotify search failed. Falling back to manual search', error)
-  }
-
-  // If ISRC search failed, try to find the song with manual search
-  try {
-    if (!spotifySong.url.includes(SPOTIFY_BASE_URL)) {
-      const songNameWithoutBrackets = song.name.split('(', 1)[0].trim()
-      const songName = songNameWithoutBrackets.replace(/[^a-z]/gi, ' ')
-      const songArtist = song.artist.replace(/[^a-z]/gi, ' ')
-      const query = `${songName} ${songArtist}`
-
-      const searchResults = await search(query, ['track'])
-
-      if (!searchResults.length) {
-        throw new Error('Manual search failed')
-      }
-
-      spotifySong = searchResults[0]
-    }
-  } catch (error) {
-    return Promise.reject(error)
-  }
-
-  // Playing sometimes fails if we just defined the player.
-  // Keep trying to queue up the song if it fails
-  return retryableFunc(
-    () =>
-      spotifyWebApi.play({
-        device_id: playerId,
-        uris: [spotifySong.url],
-      }),
-    5000
+  const transformedPlaylists: Playlist[] = response.playlists?.items.map(
+    (playlist): Playlist => ({
+      id: playlist.uri.substring('spotify:playlist:'.length),
+      name: playlist.name,
+      description: playlist.description || '',
+      image: playlist.images[0] !== undefined ? playlist.images[0].url : PLAYLIST_PLACEHOLDER_IMAGE,
+      platform: 'spotify',
+    })
   )
+  return transformedPlaylists
 }
+
+// const findSongByIsrc = async (song: Song): Promise<Song> => {
+//   const response = await spotifyWebApi.searchTracks(`isrc:${song.isrc}`)
+
+//   if (!response.tracks.items.length) {
+//     return Promise.reject(`Spotify could not find song: ${song.name}. ISRC: ${song.isrc}`)
+//   }
+
+//   const transformedResults = transformSongs(response.tracks.items)
+//   return transformedResults[0]
+// }
+
+// export const queueAndPlay = async (song: Song): Promise<any> => {
+//   const { playerId } = getPlayerOptions()
+//   const SPOTIFY_BASE_URL = 'spotify'
+
+//   let spotifySong = song
+
+//   try {
+//     if (!spotifySong.url.includes(SPOTIFY_BASE_URL)) {
+//       spotifySong = await findSongByIsrc(song)
+//     }
+//   } catch (error) {
+//     console.warn('Spotify search failed. Falling back to manual search', error)
+//   }
+
+//   // If ISRC search failed, try to find the song with manual search
+//   try {
+//     if (!spotifySong.url.includes(SPOTIFY_BASE_URL)) {
+//       const songNameWithoutBrackets = song.name.split('(', 1)[0].trim()
+//       const songName = songNameWithoutBrackets.replace(/[^a-z]/gi, ' ')
+//       const songArtist = song.artist.replace(/[^a-z]/gi, ' ')
+//       const query = `${songName} ${songArtist}`
+
+//       const searchResults = await search(query, ['track'])
+
+//       if (!searchResults.length) {
+//         throw new Error('Manual search failed')
+//       }
+
+//       spotifySong = searchResults[0]
+//     }
+//   } catch (error) {
+//     return Promise.reject(error)
+//   }
+
+//   // Playing sometimes fails if we just defined the player.
+//   // Keep trying to queue up the song if it fails
+//   return retryableFunc(
+//     () =>
+//       spotifyWebApi.play({
+//         device_id: playerId,
+//         uris: [spotifySong.url],
+//       }),
+//     5000
+//   )
+// }
 
 export const play = async (): Promise<any> => {
   const { playerId } = getPlayerOptions()

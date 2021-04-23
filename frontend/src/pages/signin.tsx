@@ -5,7 +5,7 @@ import { SEOMeta } from '@/components/SEOMeta'
 import styles from '@/styles/pages/signin.module.scss'
 import { useAuth } from '@/contexts/auth'
 import { useFirebase } from '@/libs/firebase/hook'
-import { useToast, Button, Stack } from '@chakra-ui/react'
+import { useToast, Button, Stack, Box } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc'
 
 const SignInPage: NextPage = () => {
@@ -28,7 +28,7 @@ const SignInPage: NextPage = () => {
   return (
     <>
       <SEOMeta title="ログイン" path="/signin" />
-      <section className="wrapper">
+      <Box p={4}>
         <div className={styles.signinForm}>
           <div className={styles.titleContainer}>
             <p className={styles.title}>ログイン</p>
@@ -46,7 +46,7 @@ const SignInPage: NextPage = () => {
             </Stack>
           </div>
         </div>
-      </section>
+      </Box>
     </>
   )
 }

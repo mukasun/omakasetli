@@ -9,6 +9,7 @@ class MyDocument extends Document {
       <Html lang="ja-JP">
         <Head>
           <meta charSet="utf-8" />
+          <title>{`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}</title>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
@@ -17,9 +18,22 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicons/favicon.ico" />
           <meta name="msapplication-TileColor" content={config.themeColor} />
           <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
-          <meta name="apple-mobile-web-app-title" content="おまかセトリ" />
+          <meta name="apple-mobile-web-app-title" content={config.siteMeta.title} />
           <meta name="theme-color" content={config.themeColor} />
           <meta name="format-detection" content="telephone=no" />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:title"
+            content={`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}
+          />
+          <meta property="og:url" content={config.siteRoot} />
+          <meta property="og:site" content={config.siteMeta.title} />
+          <meta property="og:image" content={`${config.siteRoot}/default_og.png`} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content={`${config.siteRoot}/default_og.png`} />
+          <meta name="description" content={config.siteMeta.description} />
+          <meta property="og:description" content={config.siteMeta.description} />
+          <meta name="twitter:description" content={config.siteMeta.description} />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
           <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js" />
           <script

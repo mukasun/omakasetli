@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { SEOMeta } from '@/components/SEOMeta'
 import { useRequireUser } from '@/hooks/useRequireUser'
 import { FaSpotify, FaApple } from 'react-icons/fa'
-import { MdSearch } from 'react-icons/md'
 import {
   Container,
   Alert,
@@ -38,8 +37,11 @@ const PlayListImportPage: NextPage = () => {
   const [isLoadingApple, setIsLoadingApple] = useState(false)
   const [isAuthorizedSpotify, setIsAuthorizedSpotify] = useState(false)
   const [isAuthorizedApple, setIsAuthorizedApple] = useState(false)
+  // const [isSearching, setIsSearching] = useState(false)
   const [spotifyPlaylists, setSpotifyPlaylists] = useState<Playlist[]>([])
   const [applePlaylists, setApplePlaylists] = useState<Playlist[]>([])
+  // const [searchResult, setSearchResult] = useState<Playlist[]>([])
+  // const [keyword, setKeyword] = useState<string>('')
 
   useEffect(() => {
     if (music.isAuthorized('spotify')) {
@@ -65,6 +67,22 @@ const PlayListImportPage: NextPage = () => {
     }
   }, [music])
 
+  // const searchPlaylist = () => {
+  //   setIsSearching(true)
+  //   music.spotify
+  //     .search(keyword, ['playlist'])
+  //     .then((result) => {
+  //       setSearchResult(result)
+  //     })
+  //     .catch((e) => {
+  //       console.log(e)
+  //       toast({ title: '検索時にエラーが発生しました。', status: 'error' })
+  //     })
+  //     .finally(() => {
+  //       setIsSearching(false)
+  //     })
+  // }
+
   return (
     <>
       <SEOMeta title="マイプレイリスト" />
@@ -85,12 +103,12 @@ const PlayListImportPage: NextPage = () => {
         </Flex>
         <Tabs align="center" mt={8} isFitted>
           <TabList>
-            <Tab>
+            {/* <Tab>
               <MdSearch size={24} />
               <Text ml={1} fontWeight={600} display={['none', 'block']}>
                 検索
               </Text>
-            </Tab>
+            </Tab> */}
             <Tab _selected={{ color: '#84BD00', borderColor: '#84BD00' }}>
               <FaSpotify size={24} />
               <Text ml={1} fontWeight={600} display={['none', 'block']}>
@@ -105,11 +123,39 @@ const PlayListImportPage: NextPage = () => {
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>
+            {/* <TabPanel>
               <Heading size="lg" my={8}>
                 楽曲検索
               </Heading>
-            </TabPanel>
+              <HStack mb={8}>
+                <InputGroup size="lg">
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<SearchIcon color="gray.300" />}
+                  />
+                  <Input
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    placeholder="キーワード"
+                  />
+                </InputGroup>
+                <Button
+                  size="lg"
+                  colorScheme="teal"
+                  isLoading={isSearching}
+                  onClick={searchPlaylist}
+                >
+                  検索
+                </Button>
+              </HStack>
+              {!isSearching && searchResult.length > 0 ? (
+                <SimpleGrid columns={[2, 3, 4]} spacing={10}>
+                  {searchResult.map((playlist) => (
+                    <PlaylistPreviewCard key={playlist.id} playlist={playlist} />
+                  ))}
+                </SimpleGrid>
+              ) : null}
+            </TabPanel> */}
             <TabPanel>
               <Heading size="lg" my={8}>
                 プレイリスト(Spotify)
