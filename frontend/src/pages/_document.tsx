@@ -9,7 +9,6 @@ class MyDocument extends Document {
       <Html lang="ja-JP">
         <Head>
           <meta charSet="utf-8" />
-          <title>{`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}</title>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />

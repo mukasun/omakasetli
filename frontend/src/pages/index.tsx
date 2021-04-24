@@ -3,11 +3,16 @@ import { NextPage } from 'next'
 import { Logo } from '@/components/svg/Logo'
 import { Box, Image, Heading, Text, HStack, VStack, Flex, Button } from '@chakra-ui/react'
 import { FaSpotify, FaApple } from 'react-icons/fa'
+import { config } from '@@/site.config'
 
 const Page: NextPage = () => {
   return (
     <>
-      <SEOMeta path="/" removeSiteNameFromTitle={true} />
+      <SEOMeta
+        title={`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}
+        path="/"
+        removeSiteNameFromTitle={true}
+      />
       <Box background="#FFF5E3">
         <Flex justify="center" align="center" flexDirection={['column', 'row']} py={12}>
           <VStack align="center" spacing={8} mr={12}>
