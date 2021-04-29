@@ -9,7 +9,9 @@ class MyDocument extends Document {
       <Html lang="ja-JP">
         <Head>
           <meta charSet="utf-8" />
+          <title>{`${config.siteMeta.title} | ${config.siteMeta.catchcopy}`}</title>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+          <link rel="icon shortcut" type="image/png" href="/favicons/favicon.ico" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
           <link rel="manifest" href="/favicons/site.webmanifest" />
@@ -46,6 +48,10 @@ class MyDocument extends Document {
                 });
               `,
             }}
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
           />
         </Head>
         <body>
